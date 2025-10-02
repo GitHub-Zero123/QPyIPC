@@ -15,7 +15,7 @@ option(PY_IPC_USE_INTERNAL_NLOHMANN_JSON "Use internal nlohmann/json implementat
 option(PY_IPC_BUILD_DEMOS "Build demo programs" OFF)
 
 # 通过link pyipc使用
-add_library(pyipc OBJECT src/ipc.cpp)
+add_library(pyipc OBJECT src/pyipc.cpp)
 
 if(PY_IPC_USE_INTERNAL_NLOHMANN_JSON)
     target_include_directories(pyipc PUBLIC

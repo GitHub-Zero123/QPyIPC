@@ -76,16 +76,18 @@ static void handleIpcMessage(const std::string& message)
     std::string pipeName = jo.value("call", "");
     auto& ipcHandlers = IPC_MANAGER::getInstance().mIpcHandlers;
     auto it = ipcHandlers.find(pipeName);
+    PyIPC::json responseData = PyIPC::json::object();   // 生成响应数据
+    std::string callbackId = jo.value("id", "");
+    responseData["id"] = callbackId;
     if (it == ipcHandlers.end()) {
-        // 未找到对应处理器
+        // 未找到对应处理器 抛出异常给Python端
+        responseData["error"] = "No handler: " + pipeName;
+        std::cout << IPC_MAGIC << responseData.dump() << "\n" << std::flush;
         return;
     }
-    std::string callbackId = jo.value("id", "");
     // 解析数据字段
     auto dataIt = jo.find("data");
     PyIPC::json requestData = (dataIt != jo.end() && dataIt->is_object()) ? *dataIt : PyIPC::json::object();
-    PyIPC::json responseData = PyIPC::json::object();   // 生成响应数据
-    responseData["id"] = callbackId;
     // 调用处理器
     try {
         auto ret = PyIPC::json::object();
