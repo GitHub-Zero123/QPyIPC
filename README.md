@@ -135,12 +135,13 @@ class IPC:
 @Listen("ClientJumpButtonPressDownEvent")
 def ClientJumpButtonPressDownEvent(_={}):
     """ 按下跳跃按键触发IPC测试逻辑 """
-    # 使用get方法调用winApi.exe的get_processes接口
+    # 调用 winApi.exe 的 get_processes 接口
     result = IPC.winApi.get("get_processes")
     datas = result["datas"]
     random.shuffle(datas) # 随机打乱排序
+
+    # 发送消息(此处仅显示一部分进程信息)
     comp = clientApi.GetEngineCompFactory().CreateTextNotifyClient(levelId)
-    # 此处仅显示一部分进程信息
     for data in datas[:min(15, len(datas))]:
         name = data["name"]
         pid = data["pid"]
