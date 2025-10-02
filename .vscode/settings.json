@@ -1,7 +1,7 @@
 {
-    "cmake.configureSettings": {
-        "PY_IPC_BUILD_DEMOS": "ON",
-    },
+    // "cmake.configureSettings": {
+    //     "PY_IPC_BUILD_DEMOS": "ON",
+    // },
     "cmake.sourceDirectory": "${workspaceFolder}",
     "files.associations": {
         "*.vertex": "glsl",
