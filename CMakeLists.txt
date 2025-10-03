@@ -18,12 +18,10 @@ option(PY_IPC_BUILD_DEMOS "Build demo programs" OFF)
 add_library(pyipc OBJECT src/pyipc.cpp)
 
 if(PY_IPC_USE_INTERNAL_NLOHMANN_JSON)
-    target_include_directories(pyipc PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/libs
-        ${CMAKE_CURRENT_SOURCE_DIR}/include
-    )
+    target_include_directories(pyipc PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/libs)
 endif()
 
+target_include_directories(pyipc PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_compile_features(pyipc PUBLIC cxx_std_20)
 
 if(PY_IPC_BUILD_DEMOS)
